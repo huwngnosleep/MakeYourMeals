@@ -1,9 +1,10 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, ImageBackground, } from 'react-native'
+import Colors from '../constants/Colors'
 
 const MealItem = (props) => {
     return(
-        <View style={styles.mealItem}>
+        <View style={styles.container}>
             <TouchableOpacity activeOpacity={0.7} onPress={props.onSelectMeal}>
                 <View  >
                     <View style={{...styles.mealRow, ...styles.mealHeader}}>
@@ -23,11 +24,10 @@ const MealItem = (props) => {
 }
 
 const styles = StyleSheet.create({
-    mealItem: {
+    container: {
         height: 200,
         width: '100%',
         backgroundColor: '#f5f5f5',
-        borderRadius: 10,
         overflow: 'hidden',
         marginVertical: 15,
         marginHorizontal: 5,
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     },
     mealRow: {
         flexDirection: 'row',
+        backgroundColor: Colors.mainWhite,
     },
     mealHeader: {
         height: '85%',

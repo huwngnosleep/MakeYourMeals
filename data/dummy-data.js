@@ -44,7 +44,7 @@ export const MEALS = [
         true,
         true,
         true
-        ),
+    ),
     
     new Meal(
         'm2',

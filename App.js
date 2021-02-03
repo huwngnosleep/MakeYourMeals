@@ -3,6 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font'
 import AppLoading from 'expo-app-loading'
 import { enableScreens } from 'react-native-screens'
+import { Provider } from 'react-redux'
+import store from './store/store'
 
 import MealNavigator from './navigation/Meals.navigator'
 
@@ -29,9 +31,11 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <MealNavigator />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <MealNavigator />
+      </View>
+    </Provider>
   );
 }
 

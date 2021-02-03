@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { StyleSheet, Text, View, Switch, } from 'react-native'
+import { StyleSheet, Text, View, Switch, Alert } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../components/CustomHeaderButton'
+import { useDispatch } from 'react-redux'
+
+import { setFilters } from '../store/actions/meals.action'
 
 import Colors from '../constants/Colors'
 
@@ -10,8 +13,8 @@ const FilterSwitch = (props) => {
         <View style={styles.filtersContainer}>
             <Text>{props.label}</Text>
             <Switch 
-                trackColor={{true: Colors.primary}}
-                thumbColor={Colors.secondary}
+                trackColor={{true: '#00b300', false: Colors.secondary}}
+                thumbColor={Colors.mainWhite}
                 value={props.state}
                 onValueChange={props.onChange}
             />
@@ -26,15 +29,18 @@ const Filters = (props) => {
     const [isVegan, setIsVegan] = useState(false)
     const [isVegetarian, setIsVegetarian] = useState(false)
 
+    const dispatch = useDispatch()
+
     const saveFilters = useCallback(() => {
         const appliedFilters = {
             isGlutenFree,
             isLactoseFree,
             isVegan,
-            isVegetarian
+            isVegetarian,
         }
 
-    }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian])
+        dispatch(setFilters(appliedFilters))
+    }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch])
 
     useEffect(() => {
         props.navigation.setParams({saveFilters})
@@ -79,8 +85,15 @@ Filters.navigationOptions = (navData) => {
         headerRight: <HeaderButtons HeaderButtonComponent={CustomHeaderButton} >
             <Item 
                 title="Save" 
-                iconName='ios-save' 
-                onPress={() => {navData.navigation.getParam('saveFilters')}} 
+                iconName='ios-checkmark-circle-outline' 
+                onPress={() => {
+                    navData.navigation.getParam('saveFilters')
+                    Alert.alert(
+                        'Filters saved',
+                        'Go to check your category meals',
+                        [{ text: 'Okay', style: 'default'}]
+                    )
+                }} 
             />
         </HeaderButtons>,
     }
