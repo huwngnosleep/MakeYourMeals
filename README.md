@@ -1,5 +1,4 @@
-Cooking recipe app
-
+Practice React Navigation
 Made with React Native, Redux
 
 Features: 
